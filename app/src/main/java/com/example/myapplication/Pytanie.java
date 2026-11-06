@@ -24,7 +24,10 @@ public class Pytanie {
         this.idPytanie = idPytanie;
         this.odpowiedz = odpowiedz;
         czyPoprawnaOdpowiedz = false;
+        wykorzystaniePodpowiedzi = false;
     }
+
+
     //gettery aby wszystko odczytać
 
     public int getIdZdjecia() {
@@ -46,5 +49,22 @@ public class Pytanie {
     //Setter
     public void setCzyPoprawnaOdpowiedz(boolean czyPoprawnaOdpowiedz) {
         this.czyPoprawnaOdpowiedz = czyPoprawnaOdpowiedz;
+    }
+
+
+    public boolean isWykorzystaniePodpowiedzi() {
+        return wykorzystaniePodpowiedzi;
+    }
+
+    public void setWykorzystaniePodpowiedzi(boolean wykorzystaniePodpowiedzi) {
+        this.wykorzystaniePodpowiedzi = wykorzystaniePodpowiedzi;
+    }
+
+    public String getPodpowiedz() {
+        return Podpowiedz;
+    }
+
+    public void setPodpowiedz(String podpowiedz) {
+        Podpowiedz = podpowiedz;
     }
 }

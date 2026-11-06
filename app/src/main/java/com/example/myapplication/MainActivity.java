@@ -2,10 +2,8 @@ package com.example.myapplication;
 
 import static android.view.View.INVISIBLE;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.WorkSource;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Pytanie> PytanieLista;
+    protected static  ArrayList<Pytanie> pytanieLista;
     private ImageView imageView;
     private Button buttonTak, buttonNie, buttonNastepny, buttonPodpowiedz;
 
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         //intencja jawna wiemy za pomocą czego ją wykonamy
                         Intent intent = new Intent(MainActivity.this, Podpowiedz_Activity.class);
-                        intent.putExtra("NRP", indexPytanie);
+                        intent.putExtra("NRP", indexPytanie);   //Numer Pytania
                         startActivity(intent);
                     }
                 }
@@ -64,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view){
                         indexPytanie++;
-                        if(indexPytanie < PytanieLista.size())
+                        if(indexPytanie < pytanieLista.size())
                         {
                             WyswietlPytanie(indexPytanie);
                         }
                         else {
                             buttonNastepny.setVisibility(INVISIBLE);
 
-                            for(Pytanie pytanie : PytanieLista)
+                            for(Pytanie pytanie : pytanieLista)
                             {
                                 if(pytanie.isCzyPoprawnaOdpowiedz())
                                 {
@@ -100,19 +98,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void ustawOdpowiedz(boolean odpowiedz)
     {
-        if(odpowiedz == PytanieLista.get(indexPytanie).isOdpowiedz())
+        if(odpowiedz == pytanieLista.get(indexPytanie).isOdpowiedz())
         {
-            PytanieLista.get(indexPytanie).setCzyPoprawnaOdpowiedz(false);
+            pytanieLista.get(indexPytanie).setCzyPoprawnaOdpowiedz(false);
         }
         else {
-            PytanieLista.get(indexPytanie).setCzyPoprawnaOdpowiedz(true);
+            pytanieLista.get(indexPytanie).setCzyPoprawnaOdpowiedz(true);
         }
 
     }
 
     private void WyswietlPytanie(int ktore)
     {
-        Pytanie pytanie = PytanieLista.get(ktore);
+        Pytanie pytanie = pytanieLista.get(ktore);
         imageView.setImageResource(pytanie.getIdZdjecia());
         textPytanie.setText(pytanie.getIdPytanie());
 
@@ -121,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void WstawPytania()
     {
-        PytanieLista = new ArrayList<>();
-        PytanieLista.add(new Pytanie(R.drawable.folk,"Czy to jest folk?", true));
-        PytanieLista.add(new Pytanie(R.drawable.fraud,"Czy to jest bum?", true));
-        PytanieLista.add(new Pytanie(R.drawable.folk2,"czy Nietzsche folk jest gorszy od fraud Striner?", false));
+        pytanieLista = new ArrayList<>();
+        pytanieLista.add(new Pytanie(R.drawable.folk,"Czy to jest folk?", true, "Folk to Folk"));
+        pytanieLista.add(new Pytanie(R.drawable.fraud,"Czy to jest bum?", true, "Engel's OC"));
+        pytanieLista.add(new Pytanie(R.drawable.folk2,"czy Nietzsche folk jest gorszy od fraud Striner?", false, "Nigdy"));
 
 
     }
